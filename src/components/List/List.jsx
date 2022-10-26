@@ -7,7 +7,7 @@ export const ContactList = ({ contacts }) => {
     return (
         <Section title='Contacts'>
             <List>
-                {contacts.map((name, id) => {
+                {contacts.map(({ name, id }) => {
                     return (<Item key={id}>{name}</Item>)
                 })}
             </List>
