@@ -7,8 +7,8 @@ export const ContactList = ({ contacts }) => {
     return (
         <Section title='Contacts'>
             <List>
-                {contacts.map(({ name, id }) => {
-                    return (<Item key={id}>{name}</Item>)
+                {contacts.map(({ id, name, number }) => {
+                    return (<Item key={id}>{name}: {number}</Item>)
                 })}
             </List>
         </Section>
@@ -19,5 +19,7 @@ ContactList.propTypes = {
     contacts: PropTypes.PropTypes.arrayOf(
          PropTypes.exact({
             id: PropTypes.string.isRequired,
-            name: PropTypes.string.isRequired,}))
+            name: PropTypes.string.isRequired,
+            number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+         }))
 }

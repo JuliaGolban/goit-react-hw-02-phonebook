@@ -7,6 +7,7 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   formSubmitHandler = formData => {
@@ -21,11 +22,10 @@ export class App extends Component {
 
   render() {
     const { contacts } = this.state;
-    console.log('App ~ render ~ contacts', contacts);
     return (
       <Container>
         <ContactForm onSubmit={this.formSubmitHandler} />
-        <ContactList contacts={this.state.contacts} />
+        <ContactList contacts={contacts} />
       </Container>
     );
   }
