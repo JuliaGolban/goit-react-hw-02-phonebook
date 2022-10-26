@@ -1,30 +1,34 @@
-import React, {Component} from 'react';
-// import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import { Section} from '../Section/Section';
 import { Form, Field, Label, Input, Submit } from './Form.styled';
 
 export class ContactForm extends Component {
- state = {
-    contacts: [],
-    name: '',
-  };
+    state = {
+        id: '',
+        name: '',
+    };
 
     handleChange = e => {
         const { name, value} = e.currentTarget;
-
-        this.setState({[name]: value})
+        this.setState({ [name]: value })
+        this.createID();
     }
-    
+
     handleSubmit = e => {
-        // e.preventDefault();
-
+        e.preventDefault();
         this.props.onSubmit(this.state);
-
         this.reset();
     }
 
+        
+    createID = () => {
+        const contactId = nanoid(4);
+        this.setState({ id: contactId })
+    }
+
     reset = () => {
-    this.setState({ name: ''});
+        this.setState({ name: '', id: ''});
     };
     
     render(){
@@ -36,9 +40,9 @@ export class ContactForm extends Component {
                         <Input
                             type="text"
                             name="name"
+                            contactId={this.state.id}
                             value={this.state.name}
                             onChange={this.handleChange}
-                            placeholder=" "
                             pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
                             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                             required />
@@ -49,7 +53,3 @@ export class ContactForm extends Component {
             );
         }
 }
-
-// ContactForm.propTypes = {
-//     contacts: PropTypes.array
-// }

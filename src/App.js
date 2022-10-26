@@ -1,6 +1,4 @@
 import { Component } from 'react';
-// import { nanoid } from 'nanoid';
-// model.id = nanoid();
 import { ContactForm } from 'components/Form/Form';
 import { ContactList } from 'components/List/List';
 import { Container } from './App.styled';
@@ -11,25 +9,22 @@ export class App extends Component {
     name: '',
   };
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
+  formSubmitHandler = formData => {
+    console.log('App ~ formData', formData);
+    this.addToContacts(formData);
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-
-    this.props.onSubmit(this.state);
-
-    this.reset();
+  addToContacts = data => {
+    const { contacts } = this.state;
+    contacts.push(data);
   };
 
   render() {
+    const { contacts } = this.state;
     return (
       <Container>
-        <ContactForm onSubmit={this.handleSubmit} />
-        <ContactList contacts={Object.keys(this.state)} />
+        <ContactForm onSubmit={this.formSubmitHandler} />
+        <ContactList contacts={contacts} />
       </Container>
     );
   }
