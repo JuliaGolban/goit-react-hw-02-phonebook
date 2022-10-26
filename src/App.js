@@ -10,21 +10,22 @@ export class App extends Component {
   };
 
   formSubmitHandler = formData => {
-    console.log('App ~ formData', formData);
     this.addToContacts(formData);
   };
 
   addToContacts = data => {
     const { contacts } = this.state;
-    contacts.push(data);
+    const contactsList = contacts.concat(data);
+    return this.setState({ contacts: contactsList });
   };
 
   render() {
     const { contacts } = this.state;
+    console.log('App ~ render ~ contacts', contacts);
     return (
       <Container>
         <ContactForm onSubmit={this.formSubmitHandler} />
-        <ContactList contacts={contacts} />
+        <ContactList contacts={this.state.contacts} />
       </Container>
     );
   }

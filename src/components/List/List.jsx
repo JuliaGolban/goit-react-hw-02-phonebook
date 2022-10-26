@@ -16,5 +16,8 @@ export const ContactList = ({ contacts }) => {
 }
 
 ContactList.propTypes = {
-    contacts: PropTypes.any.isRequired
+    contacts: PropTypes.PropTypes.arrayOf(
+         PropTypes.exact({
+            id: PropTypes.string.isRequired,
+            name: PropTypes.string.isRequired,}))
 }
