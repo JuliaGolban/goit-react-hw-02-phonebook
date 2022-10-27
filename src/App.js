@@ -19,9 +19,14 @@ class App extends Component {
     this.addToContacts(formData);
   };
 
-  addToContacts = data => {
+  addToContacts = contact => {
     const { contacts } = this.state;
-    const contactsList = contacts.concat(data);
+    const normalizedName = contact.name.toLowerCase();
+
+    if (contacts.some(({ name }) => name.toLowerCase() === normalizedName)) {
+      return alert(`${contact.name} is already in contacts`);
+    }
+    const contactsList = contacts.concat(contact);
     return this.setState({ contacts: contactsList });
   };
 

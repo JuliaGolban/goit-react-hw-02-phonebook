@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { nanoid} from 'nanoid';
+import { nanoid } from 'nanoid';
 import { Form, Field, Label, Input, Submit } from './Form.styled';
 
 const INITIAL_STATE = {
