@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, Item } from './List.styled';
+import { List, Item, BtnDelete } from './List.styled';
 
 export const ContactList = ({ contacts }) => {
     return (
         <List>
             {contacts.map(({ id, name, number }) => {
-            return (<Item key={id}>{name}: {number}</Item>)
+                return (
+                    <Item key={id}>{name}: {number}
+                        <BtnDelete aria-label="Delete">x</BtnDelete>
+                    </Item>)
             })}
         </List>
     )

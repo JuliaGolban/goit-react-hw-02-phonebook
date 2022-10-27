@@ -6,7 +6,7 @@ const Form = styled.form`
   justify-content: center;
   align-items: flex-start;
 
-  width: 270px;
+  width: 320px;
   padding-left: 15px;
 
   background-color: transparent;
