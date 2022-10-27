@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
-import { nanoid, customAlphabet } from 'nanoid';
-import { Section} from '../Section/Section';
+import { nanoid} from 'nanoid';
 import { Form, Field, Label, Input, Submit } from './Form.styled';
 
+const INITIAL_STATE = {
+    name: '',
+    number:'',
+}
+
 export class ContactForm extends Component {
-    state = {
-        id: '',
-        name: '',
-        number:'',
-    };
+    state = { ...INITIAL_STATE};
 
     handleChange = e => {
-        const { name, number, value} = e.currentTarget;
-        this.setState({ [name]: value, [number]: value })
+        const { name,  value} = e.currentTarget;
+        this.setState({ [name]: value})
         this.createID();
     }
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.onSubmit(this.state);
+        this.props.onSubmit({ ...this.state });
         this.reset();
     }
         
@@ -28,41 +28,41 @@ export class ContactForm extends Component {
     }
 
     reset = () => {
-        this.setState({ id: '', name: '', number:'' });
+        this.setState({ ...INITIAL_STATE });
     };
     
-    render(){
+    render() {
+        const { id, name, number } = this.state;
+
         return (
-            <Section title='Phonebook'>
-                <Form onSubmit={this.handleSubmit}>
-                    <Field>
-                        <Label>Name</Label>
-                        <Input
-                            type="text"
-                            name="name"
-                            contactId={this.state.id}
-                            value={this.state.name}
-                            onChange={this.handleChange}
-                            pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
-                            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                            required />
-                    </Field>
-                    <Field>
-                        <Label>Number</Label>
-                        <Input
-                            type="tel"
-                            name="number"
-                            contactId={this.state.id}
-                            value={this.state.number}
-                            onChange={this.handleChange}
-                            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-                            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-                            required
-                            />
-                    </Field>
-                    <Submit type="submit">Add contact</Submit>
-                </Form>
-            </Section>
-            );
-        }
+            <Form onSubmit={this.handleSubmit}>
+                <Field>
+                    <Label>Name</Label>
+                    <Input
+                        type="text"
+                        name="name"
+                        contactId={id}
+                        value={name}
+                        onChange={this.handleChange}
+                        pattern="^[a-zA-Za-яА-Я]+(([' -][a-zA-Za-яА-Я ])?[a-zA-Za-яА-Я]*)*$"
+                        title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                        required />
+                </Field>
+                <Field>
+                    <Label>Number</Label>
+                    <Input
+                        type="tel"
+                        name="number"
+                        contactId={id}
+                        value={number}
+                        onChange={this.handleChange}
+                        pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                        title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                        required
+                     />
+                </Field>
+                <Submit type="submit">Add contact</Submit>
+            </Form>
+        );
+    }
 }
