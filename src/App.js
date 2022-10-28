@@ -22,13 +22,18 @@ class App extends Component {
   addToContacts = contact => {
     const { contacts } = this.state;
     const normalizedName = contact.name.toLowerCase();
+    const isExist = contacts.some(
+      ({ name }) => name.toLowerCase() === normalizedName
+    );
 
-    if (contacts.some(({ name }) => name.toLowerCase() === normalizedName)) {
+    if (isExist) {
       return alert(`${contact.name} is already in contacts`);
     }
     const contactsList = contacts.concat(contact);
     return this.setState({ contacts: contactsList });
   };
+
+  checkExistContact = contact => {};
 
   changeFilter = e => {
     this.setState({ filter: e.currentTarget.value });
